@@ -12,7 +12,7 @@ app.use("/books", bookRoutes);
 
 app.use(
   cors({
-    origin: "http://localhost:5000",
+    origin: "http://localhost:5137",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
   })
