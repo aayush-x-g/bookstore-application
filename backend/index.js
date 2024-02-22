@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import bookRoutes from "./routes/bookRoutes.js";
+import booksRoute from "./routes/booksRoute.js";
 import cors from "cors";
 import "dotenv/config";
 
@@ -8,27 +8,23 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/books", bookRoutes);
+app.use(cors());
 
-app.use(
-  cors({
-    origin: "http://localhost:5137",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type"],
-  })
-);
-
-app.get("/", (req, res) => {
-  console.log(req);
-  return res.status(200).send(`All Good`);
+app.get("/", (request, response) => {
+  console.log(request);
+  return response.status(234).send("Welcome To MERN Stack Tutorial");
 });
+
+app.use("/books", booksRoute);
 
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => {
-    console.log(`App connected to Database`);
+    console.log("App connected to database");
     app.listen(process.env.PORT, () => {
-      console.log(`Listening on PORT ${process.env.PORT}`);
+      console.log(`App is listening to port: ${process.env.PORT}`);
     });
   })
-  .catch((e) => console.log(e));
+  .catch((error) => {
+    console.log(error);
+  });
